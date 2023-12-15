@@ -51,7 +51,7 @@ FindElementArray(line,column);
 */
 
 /* 2. Задайте двумерный массив. Напишите программу, которая поменяет местами первую и последнюю строку массива. */
-
+/*
 int[,] array = new int[5,5];
 void CreateArray()
 {
@@ -91,19 +91,63 @@ PrintArray();
 Console.WriteLine("  -------   ");
 ChangeArray();
 PrintArray();
-
-
-
-
-
-
-
-
+*/
 
 /* 3. Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку 
 с наименьшей суммой элементов.  */
 
+int[,] array = new int[5,2];
+void CreateArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i,j] = new Random().Next(1,10);
+        }
+    }
+}
 
+void PrintArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            Console.Write(array[i,j] + "  ");
+        }
+        Console.WriteLine();
+    }
+}
+
+void FindIndexLine()
+{    
+    int findindex=0;
+    int minsum=0;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        int sum=0;
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            sum=sum+array[i,j];
+        }
+        if (i==0)
+        {
+           minsum=sum;
+        }
+        if (sum<minsum)
+        {
+           minsum=sum;
+           findindex=i;
+        }
+    }
+    Console.WriteLine($"Строка с индексом {findindex}");
+}
+
+CreateArray();
+PrintArray();
+Console.WriteLine();
+FindIndexLine();
 
 
 
