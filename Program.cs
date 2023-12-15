@@ -96,6 +96,7 @@ PrintArray();
 /* 3. Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку 
 с наименьшей суммой элементов.  */
 
+/*
 int[,] array = new int[5,2];
 void CreateArray()
 {
@@ -107,7 +108,6 @@ void CreateArray()
         }
     }
 }
-
 void PrintArray()
 {
     for (int i = 0; i < array.GetLength(0); i++)
@@ -119,7 +119,6 @@ void PrintArray()
         Console.WriteLine();
     }
 }
-
 void FindIndexLine()
 {    
     int findindex=0;
@@ -148,12 +147,92 @@ CreateArray();
 PrintArray();
 Console.WriteLine();
 FindIndexLine();
-
-
-
-
-
+*/
 
 /*Задайте двумерный массив из целых чисел. Напишите программу, которая удалит строку и столбец, 
-на пересечении которых расположен наименьший элемент массива. Под удалением понимается создание нового двумерного массива без строки и столбца  */
+на пересечении которых расположен наименьший элемент массива. Под удалением понимается создание нового 
+двумерного массива без строки и столбца  */
 
+
+int[,] array = new int[4,3];
+int[,] newarray= new int[array.GetLength(0)-1,array.GetLength(1)-1];
+void CreateArray()
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i,j] = new Random().Next(1,10);
+        }
+    }
+}
+
+void PrintArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            Console.Write(array[i,j] + "  ");
+        }
+        Console.WriteLine();
+    }
+}
+
+void NewChangeArray()
+{    
+    int minline=0;
+    int mincol=0;
+    int min=array[0,0];
+     for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if (array[i,j]<min)
+            {
+                min=array[i,j];
+                minline=i;
+                mincol=j;
+            }
+        }
+    }
+    Console.WriteLine(min+": "+minline+","+mincol);//отображаю на экране минимальный элемент и его индексы
+    Console.WriteLine();
+    
+    for (int i = 0; i < newarray.GetLength(0); i++)
+    {
+        
+        for (int j = 0; j < newarray.GetLength(1); j++)
+        {
+            if (i<minline)
+            {
+                if (j<mincol)
+                {
+                    newarray[i,j]=array[i,j];
+                }
+                else
+                {
+                    newarray[i,j]=array[i,j+1];
+                }            
+            }
+            if (i>=minline)
+            {
+                 if (j<mincol)
+                {
+                    newarray[i,j]=array[i+1,j];
+                }
+                else
+                {
+                    newarray[i,j]=array[i+1,j+1];
+                }                      
+            }
+           
+        }
+    }
+}
+
+CreateArray();
+PrintArray(array);
+Console.WriteLine();
+NewChangeArray();
+PrintArray(newarray);
